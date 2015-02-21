@@ -222,4 +222,6 @@ net.ipv4.conf.default.send_redirects:
     - value: 0
 
 # log martian packets (risky, may cause DoS)
-net.ipv4.conf.all.log_martians = 1
+net.ipv4.conf.all.log_martians:
+  sysctl.present:
+    - value: 1
