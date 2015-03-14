@@ -33,4 +33,5 @@ kernel.sysrq:
 # may contain sensitive information.
 fs.suid_dumpable: 
  sysctl.present: 
-  - value: 1
+  - value: 0
+
