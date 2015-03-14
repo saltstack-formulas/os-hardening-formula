@@ -1,8 +1,11 @@
+{% set config = salt['pillar.get']('network',{}) %}
 # Only enable IP traffic forwarding, if required.
+#
 net.ipv4.ip_forward:
   sysctl.present:
-    - value: 0
+    - value: {{config.get('ip_forwarding',0)}}
 
+{% if config.get('ipv6_disable',True) %}
 # Disable IPv6
 net.ipv6.conf.all.disable_ipv6: 
   sysctl.present: 
@@ -44,7 +47,7 @@ net.ipv6.conf.default.max_addresses:
 net.ipv6.conf.all.accept_ra: 
   sysctl.present: 
     - value: 0
-
+{% endif %}
 # Enable RFC-recommended source validation feature. It should not be used for
 # routers on complex networks, but is helpful for end hosts and routers serving
 # small networks.
