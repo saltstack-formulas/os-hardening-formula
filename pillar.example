@@ -1,0 +1,7 @@
+hardening:
+  network:
+    ip_foward: False
+    ipv6_disable: True
+    arp_restricted: True
+  kernel:
+    modules_disabled: True
