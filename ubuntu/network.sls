@@ -1,4 +1,4 @@
-{% set config = salt['pillar.get']('network',{}) %}
+{% set config = salt['pillar.get']('hardening:network',{}) %}
 # Only enable IP traffic forwarding, if required.
 #
 net.ipv4.ip_forward:
@@ -110,11 +110,10 @@ net.ipv4.tcp_timestamps:
 # on all other interfaces, with the hope we will receive reply for our request
 # and even sometimes no matter the source IP address we announce.
 
-{% if salt['pillar.get']('network:arp_restricted') %}
+{% if config.get('arp_restricted',True) %}
   net.ipv4.conf.all.arp_ignore:
     sysctl.present:
       - value: 1
-{% endif %}
 {% else %}
   net.ipv4.conf.all.arp_ignore:
     sysctl.present:
@@ -142,7 +141,7 @@ net.ipv4.tcp_timestamps:
 #
 # * **8** - do not reply for all local addresses
 
-{% if salt['pillar.get']('network:arp_restricted') %}
+{% if config.get('arp_restricted',True) %}
 net.ipv4.conf.all.arp_announce: 
   sysctl.present:
     - value: 2
