@@ -9,6 +9,14 @@
         'login_timeout'           : 60,
         'chfn_restrict'           : '',
         'allow_login_without_home': false,
+      },
+      'networking': {
+        'ip_forwarding': 0,
+        'ipv6_disable': True,
+        'arp_restricted': True
+      },
+      'kernel': {
+        'modules_disabled': True
       }
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}

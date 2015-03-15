@@ -1,7 +1,8 @@
+{% from "linux_hardening/map.jinja" import hardening with context %}
 # This settings controls how the kernel behaves towards module changes at
 # runtime. Setting to 1 will disable module loading at runtime.
 
-{% if salt['pillar.get']('hardening:kernel:modules_disabled',True) %}
+{% if hardening.kernel.modules_disabled %}
 kernel.modules_disabled: 
  sysctl.present: 
   - value: 1
