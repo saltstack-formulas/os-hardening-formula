@@ -1,8 +1,8 @@
-{%- from "linux_hardening/map.jinja" import hardening with context -%}
+{% from "linux_hardening/map.jinja" import hardening with context -%}
 # Configuration control definitions for the login package.
-# 
+#
 # Three items must be defined:  `MAIL_DIR`, `ENV_SUPATH`, and `ENV_PATH`. If unspecified, some arbitrary (and possibly incorrect) value will be assumed.  All other items are optional - if not specified then the described action or option will be inhibited.
-# 
+#
 # Comment lines (lines beginning with `#`) and blank lines are ignored.
 #
 #-- Modified for Linux.  --marekm

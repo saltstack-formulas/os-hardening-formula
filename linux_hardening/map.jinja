@@ -1,6 +1,6 @@
 {% set hardening = salt['grains.filter_by']({
     'Linux': {
-      'login_defs' {
+      'login_defs' : {
         'extra_user_paths'        : [],
         'umask'                   : '027',
         'password_max_age'        : 60,
@@ -11,4 +11,4 @@
         'allow_login_without_home': false,
       }
   },
-}, merge=salt['pillar.get']('hardening',{})) %}
+}, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}

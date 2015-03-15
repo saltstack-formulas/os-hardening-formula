@@ -7,11 +7,18 @@ include:
     - template: jinja
     - user: root
     - group: root
-    - mode: 444
+    - mode: 0444
 /etc/profile.d/disable_coredumps.sh:
   file.managed:
     - source: salt://linux_hardening/templates/profile.conf.tmpl
     - template: jinja
     - user: root
     - group: root
-    - mode: 755
+    - mode: 0755
+/etc/login.defs:
+  file.managed:
+    - source: salt://linux_hardening/templates/login.defs.tmpl
+    - template: jinja
+    - user: root
+    - group: root
+    - moe: 0400
