@@ -111,13 +111,13 @@ net.ipv4.tcp_timestamps:
 # and even sometimes no matter the source IP address we announce.
 
 {% if config.get('arp_restricted',True) %}
-  net.ipv4.conf.all.arp_ignore:
-    sysctl.present:
-      - value: 1
+net.ipv4.conf.all.arp_ignore:
+  sysctl.present:
+    - value: 1
 {% else %}
-  net.ipv4.conf.all.arp_ignore:
-    sysctl.present:
-      - value: 0
+net.ipv4.conf.all.arp_ignore:
+  sysctl.present:
+    - value: 0
 {% endif %}
 
 
@@ -145,7 +145,6 @@ net.ipv4.tcp_timestamps:
 net.ipv4.conf.all.arp_announce: 
   sysctl.present:
     - value: 2
-{% endif %}
 {% else %}
 net.ipv4.conf.all.arp_announce: 
   sysctl.present: 
