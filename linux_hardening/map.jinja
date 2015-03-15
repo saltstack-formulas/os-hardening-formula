@@ -1,0 +1,4 @@
+{% set hardening = salt['grains.filter_by']({
+    'Linux': {
+  },
+}, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}
