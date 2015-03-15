@@ -1,6 +1,6 @@
 hardening:
   network:
-    ip_foward: False
+    ip_fowarding: 0
     ipv6_disable: True
     arp_restricted: True
   kernel:
