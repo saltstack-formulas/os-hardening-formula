@@ -1,4 +1,4 @@
-# {{ pillar['message_do_not_modify'] }}
+# {{ salt['pillar.get']('message_do_not_modify','') }}
 
 # Disable core dumps via soft limits for all users. Compliance to this setting
 # is voluntary and can be modified by users up to a hard limit. This setting is
