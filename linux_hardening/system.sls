@@ -15,7 +15,7 @@ initramfs_modules:
     - user: root
     - group: root
     - mode: 0400
-  cwd.wait:
+  cmd.wait:
     - name: /usr/sbin/update-initramfs -u
     - watch:
       - file: initramfs_modules

@@ -1,5 +1,5 @@
 {% from "linux_hardening/map.jinja" import hardening with context %}
-{% if grains['cpu_arch'] == "x86_64" %}
+{% if grains['cpuarch'] == "x86_64" %}
 # Optimize for x86_64 cryptographic features
 twofish-x86_64-3way
 twofish-x86_64
@@ -13,8 +13,8 @@ blowfish-x86_64
 ghash-clmulni-intel
 aesni-intel
 kvm-intel
-{% endif ‰}
-{% if hardening.kernel.cpu_vendor == "amd" ‰}
+{% endif %}
+{% if hardening.kernel.cpu_vendor == "amd" %}
 # AMD-specific optimizations
 kvm-amd
 {% endif %}
@@ -51,7 +51,7 @@ loop
 ext2
 btrfs
 
-{% if hardening.kernel.desktop_enabled ‰}
+{% if hardening.kernel.desktop_enabled %}
 # Desktop
 psmouse
 snd
