@@ -6,6 +6,19 @@
 kernel.modules_disabled: 
  sysctl.present: 
   - value: 1
+# ensure modules are loaded in initramfs when they cannot be loaded live
+initramfs_modules:
+  file.managed:
+    - name: /etc/initramfs-tools/modules
+    - source: salt://linux_hardening/templates/modules.tmpl
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 0400
+  cwd.wait:
+    - name: /usr/sbin/update-initramfs -u
+    - watch:
+      - file: initramfs_modules
 {% endif %}
 
 
