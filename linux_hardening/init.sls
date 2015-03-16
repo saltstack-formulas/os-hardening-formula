@@ -1,6 +1,7 @@
 include:
   - linux_hardening.network
   - linux_hardening.system
+  - linux_hardening.pam
 /etc/security/limits.d/10.disable_coredumps.conf:
   file.managed:
     - source: salt://linux_hardening/templates/limits.conf.tmpl

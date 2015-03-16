@@ -7,6 +7,26 @@
       },
       'kernel': {
         'modules_disabled': True
+      },
+      'pam': {
+         'passwdqc_enabled': True,
+         'auth_retries': 5,
+         'auth_lockout_time': 600,
+         'passwdqc_options': 'min=disabled,disabled,16,12,8',
       }
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}
+{% set pamdata = salt['grains.filter_by']({
+  'Redhat' : {
+     'pam_ccreds': 'pam_ccreds',
+     'pam_passwdqc': 'pam_passwdqc',
+     'pam_cracklib': 'pam_cracklib'
+  },
+  'Debian' : {
+    'pam_ccreds': 'libpam-ccreds',
+    'pam_passwdqc': 'libpam-passwdqc',
+    'pam_cracklib': 'libpam-cracklib',
+    'passwdqc_path' : '/usr/share/pam-configs/passwdqc',
+    'tally2_path'   : '/usr/share/pam-configs/tally2'
+  }
+}, default='Redhat') %}
