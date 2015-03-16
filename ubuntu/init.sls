@@ -5,7 +5,7 @@ hardening:
 
   file.managed:
     - name: /etc/security/limits.d/10.disable_coredumps.conf
-    - source: salt://linux/hardening/templates/limits.conf.tmpl
+    - source: salt://os-hardening/ubuntu/templates/limits.conf.tmpl
     - template: jinja
 
     - user: root
@@ -14,7 +14,7 @@ hardening:
 
   file.managed:
     - name: /etc/profile.d/disable_coredumps.sh
-    - source: salt://linux/hardening/templates/profile.conf.tmpl
+    - source: salt://os-hardening/ubuntu/templates/profile.conf.tmpl
     - template: jinja
 
     - user: root
