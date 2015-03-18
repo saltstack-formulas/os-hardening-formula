@@ -1,6 +1,7 @@
 include:
   - os-hardening.network
   - os-hardening.system
+  - os-hardening.sugid_bits
 
 limits_hardcore:
   file.managed:

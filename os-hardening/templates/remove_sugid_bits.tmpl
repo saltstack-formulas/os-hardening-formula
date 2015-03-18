@@ -1,0 +1,54 @@
+{%- set base_whitelist = salt['pillar.get']('hardening:sugid:base_whitelist',[
+  '/bin/mount', '/bin/ping', '/bin/su', '/bin/umount',
+  '/sbin/pam_timestamp_check','/sbin/unix_chkpwd', '/usr/bin/at',
+  '/usr/bin/gpasswd', '/usr/bin/locate', '/usr/bin/newgrp',
+  '/usr/bin/passwd', '/usr/bin/ssh-agent', '/usr/libexec/utempter/utempter',
+  '/usr/sbin/lockdev', '/usr/sbin/sendmail.sendmail', '/usr/bin/expiry',
+  '/bin/ping6','/usr/bin/traceroute6.iputils',
+  '/sbin/mount.nfs', '/sbin/umount.nfs',
+  '/sbin/mount.nfs4', '/sbin/umount.nfs4',
+  '/usr/bin/crontab',
+  '/usr/bin/wall', '/usr/bin/write',
+  '/usr/bin/screen',
+  '/usr/bin/mlocate',
+  '/usr/bin/chage', '/usr/bin/chfn', '/usr/bin/chsh',
+  '/bin/fusermount',
+  '/usr/bin/pkexec',
+  '/usr/bin/sudo','/usr/bin/sudoedit',
+  '/usr/sbin/postdrop','/usr/sbin/postqueue',
+  '/usr/sbin/suexec',
+  '/usr/lib/squid/ncsa_auth', '/usr/lib/squid/pam_auth',
+  '/usr/kerberos/bin/ksu',
+  '/usr/sbin/ccreds_validate',
+  '/usr/bin/Xorg',
+  '/usr/bin/X',
+  '/usr/lib/dbus-1.0/dbus-daemon-launch-helper',
+  '/usr/lib/vte/gnome-pty-helper',
+  '/usr/lib/libvte9/gnome-pty-helper',
+  '/usr/lib/libvte-2.90-9/gnome-pty-helper',
+  ]) -%}
+{%- set whitelist = salt['pillar.get']('hardening:sugid:whitelist',[]) -%}
+{%- set final_whitelist = base_whitelist|list + whitelist|list -%}
+#!/bin/bash
+# MANAGED BY SALT
+# Script to remove all not whitelisted SUIDs on all FS beside FSs mounted with nosuid
+# Artem Sidorenko <a.sidorenko@telekom.de>, Dominik Richter <do.richter@telekom.de>
+# 2013-2014 Deutsche Telekom AG
+
+# suid whitelist
+suid_whitelist="{{ final_whitelist|join('|') }}"
+
+#filesystems to check, we ignore mounts with nosuid and some sys mounts
+filesystems=`mount | egrep -v "nosuid|cgroup|udev|none"| cut -f3 -d" "`
+
+for fs in $filesystems
+do
+  files=`/usr/bin/find $fs -xdev \( -perm -4000 -o -perm -2000 \) -type f -print 2>/dev/null | /bin/egrep -v "$suid_whitelist"`
+  if [ -n "$files" ]; then
+    {% if salt['pillar.get']('hardening:dry_run',False) %}
+    echo "remove from: $files"
+    {% else %}
+    chmod ug-s $files
+    {% endif %}
+  fi
+done
