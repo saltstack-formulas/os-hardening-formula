@@ -6,7 +6,10 @@
         'arp_restricted': True
       },
       'kernel': {
-        'modules_disabled': True
+        'modules_disabled': True,
+        'load_modules' : [],
+        'cpu_vendor': 'intel',
+        'desktop_enabled': False,
       }
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}
