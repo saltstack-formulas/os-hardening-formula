@@ -30,7 +30,7 @@ remove_{{file}}:
 {% endfor %}
 check_sugid_bits:
   cmd.script:
-    - source: salt://linux_hardening/templates/remove_sugid_bits.tmpl
+    - source: salt://os-hardening/templates/remove_sugid_bits.tmpl
     - template: jinja
     - user: root
     - group: root

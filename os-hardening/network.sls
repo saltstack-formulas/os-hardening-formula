@@ -1,11 +1,9 @@
-{% set config = salt['pillar.get']('hardening:network',{}) %}
+{% from "os-hardening/map.jinja" import hardening with context %}
 # Only enable IP traffic forwarding, if required.
-#
 net.ipv4.ip_forward:
   sysctl.present:
-    - value: {{config.get('ip_forwarding',0)}}
-
-{% if config.get('ipv6_disable',True) %}
+    - value: {{hardening.networking.ip_forwarding}}
+{% if hardening.networking.ipv6_disable %}
 # Disable IPv6
 net.ipv6.conf.all.disable_ipv6: 
   sysctl.present: 
@@ -110,7 +108,7 @@ net.ipv4.tcp_timestamps:
 # on all other interfaces, with the hope we will receive reply for our request
 # and even sometimes no matter the source IP address we announce.
 
-{% if config.get('arp_restricted',True) %}
+{% if hardening.networking.arp_restricted %}
 net.ipv4.conf.all.arp_ignore:
   sysctl.present:
     - value: 1
@@ -141,7 +139,7 @@ net.ipv4.conf.all.arp_ignore:
 #
 # * **8** - do not reply for all local addresses
 
-{% if config.get('arp_restricted',True) %}
+{% if hardening.networking.arp_restricted %}
 net.ipv4.conf.all.arp_announce: 
   sysctl.present:
     - value: 2
