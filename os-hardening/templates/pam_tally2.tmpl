@@ -1,0 +1,11 @@
+{% from "os-hardening/map.jinja" import hardening with context -%}
+Name: tally2 lockout after failed attempts enforcement
+Default: yes
+Priority: 1024
+Conflicts: cracklib
+Auth-Type: Primary
+Auth-Initial:
+  required      pam_tally2.so deny={{hardening.pam.auth_retries}} onerr=fail unlock_time={{hardening.pam.auth_lockout_time}}
+Account-Type: Primary
+Account-Initial:
+  required      pam_tally2.so

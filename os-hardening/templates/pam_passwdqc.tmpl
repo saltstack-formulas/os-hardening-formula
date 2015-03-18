@@ -1,0 +1,8 @@
+{% from "os-hardening/map.jinja" import hardening with context -%}
+passwdqc.erbName: passwdqc password strength enforcement
+Default: yes
+Priority: 1024
+Conflicts: cracklib
+Password-Type: Primary
+Password:
+  requisite     pam_passwdqc.so {{hardening.pam.passwdqc_options}}

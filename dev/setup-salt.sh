@@ -1,8 +1,5 @@
 #!/bin/sh
-sudo add-apt-repository ppa:saltstack/salt -y
-sudo apt-get update -y
-sudo apt-get install salt-master -y
-sudo apt-get install salt-minion -y
+curl -L https://bootstrap.saltstack.com | sudo sh -s -- git develop
 # setup top files to test the formula
 sudo mkdir -p /srv/pillar
 sudo ln -s /srv/salt/pillar.example /srv/pillar/linux_hardening.sls

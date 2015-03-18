@@ -1,5 +1,5 @@
-{% from "linux_hardening/map.jinja" import hardening with context %}
-{% from "linux_hardening/map.jinja" import pamdata with context %}
+{% from "os-hardening/map.jinja" import hardening with context %}
+{% from "os-hardening/map.jinja" import pamdata with context %}
 
 {{pamdata.pam_ccreds}}:
   pkg.removed
@@ -11,7 +11,7 @@
 passwdqc_config:
   file.managed:
     - name: {{pamdata.passwdqc_path}}
-    - source: salt://linux_hardening/templates/pam_passwdqc.tmpl
+    - source: salt://os-hardening/templates/pam_passwdqc.tmpl
     - user: root
     - group: root
     - mode: 0640
@@ -30,7 +30,7 @@ libpam-modules:
 tally2_config:
   file.managed:
     - name: {{pamdata.tally2_path}}
-    - source: salt://linux_hardening/templates/pam_tally2.tmpl
+    - source: salt://os-hardening/templates/pam_tally2.tmpl
     - user: root
     - group: root
     - mode: 0640
@@ -42,9 +42,15 @@ tally2_no_config:
 
 update_pam:
   cmd.wait:
-    - name:/usr/sbin/pam-auth-update --package
+    - name: /usr/sbin/pam-auth-update --package
     - watch:
+      {% if hardening.pam.auth_retries > 0 -%}
       - file: tally2_config
+      {% else -%}
       - file: tally2_no_config
+      {% endif -%}
+      {%- if hardening.pam.passwdqc_enabled -%}
       - file: passwdqc_config
+      {% else %}
       - file: passwdqc_no_config
+      {% endif %}

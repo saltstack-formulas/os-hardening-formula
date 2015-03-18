@@ -1,4 +1,4 @@
-{% from "linux_hardening/map.jinja" import hardening with context %}
+{% from "os-hardening/map.jinja" import hardening with context %}
 # This settings controls how the kernel behaves towards module changes at
 # runtime. Setting to 1 will disable module loading at runtime.
 
@@ -35,8 +35,4 @@ kernel.sysrq:
 fs.suid_dumpable: 
  sysctl.present: 
   - value: 0
-# Stack protection through randomized VA kernel space
-kernel.randomize_va_space:
- sysctl.present:
-  - value: 2
 
