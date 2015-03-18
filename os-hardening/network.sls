@@ -1,8 +1,9 @@
+{% from "os-hardening/map.jinja" import hardening with context %}
 # Only enable IP traffic forwarding, if required.
 net.ipv4.ip_forward:
   sysctl.present:
-    - value: 0
-
+    - value: {{hardening.networking.ip_forwarding}}
+{% if hardening.networking.ipv6_disable %}
 # Disable IPv6
 net.ipv6.conf.all.disable_ipv6: 
   sysctl.present: 
@@ -44,7 +45,7 @@ net.ipv6.conf.default.max_addresses:
 net.ipv6.conf.all.accept_ra: 
   sysctl.present: 
     - value: 0
-
+{% endif %}
 # Enable RFC-recommended source validation feature. It should not be used for
 # routers on complex networks, but is helpful for end hosts and routers serving
 # small networks.
@@ -107,15 +108,14 @@ net.ipv4.tcp_timestamps:
 # on all other interfaces, with the hope we will receive reply for our request
 # and even sometimes no matter the source IP address we announce.
 
-{% if salt['pillar.get']('network:arp_restricted') %}
-  net.ipv4.conf.all.arp_ignore:
-    sysctl.present:
-      - value: 1
-{% endif %}
+{% if hardening.networking.arp_restricted %}
+net.ipv4.conf.all.arp_ignore:
+  sysctl.present:
+    - value: 1
 {% else %}
-  net.ipv4.conf.all.arp_ignore:
-    sysctl.present:
-      - value: 0
+net.ipv4.conf.all.arp_ignore:
+  sysctl.present:
+    - value: 0
 {% endif %}
 
 
@@ -139,11 +139,10 @@ net.ipv4.tcp_timestamps:
 #
 # * **8** - do not reply for all local addresses
 
-{% if salt['pillar.get']('network:arp_restricted') %}
+{% if hardening.networking.arp_restricted %}
 net.ipv4.conf.all.arp_announce: 
   sysctl.present:
     - value: 2
-{% endif %}
 {% else %}
 net.ipv4.conf.all.arp_announce: 
   sysctl.present: 
