@@ -1,4 +1,4 @@
-{% from "linux_hardening/map.jinja" import hardening with context %}
+{% from "os-hardening/map.jinja" import hardening with context %}
 # Only enable IP traffic forwarding, if required.
 net.ipv4.ip_forward:
   sysctl.present:
