@@ -35,8 +35,4 @@ kernel.sysrq:
 fs.suid_dumpable: 
  sysctl.present: 
   - value: 0
-# Stack protection through randomized VA kernel space
-kernel.randomize_va_space:
- sysctl.present:
-  - value: 2
 
