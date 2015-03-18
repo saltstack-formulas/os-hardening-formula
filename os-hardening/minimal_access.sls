@@ -1,4 +1,4 @@
-{% from "linux_hardening/map.jinja" import hardening with context %}
+{% from "os-hardening/map.jinja" import hardening with context %}
 {% for dir in hardening.read_only_folders %}
 {{dir}}:
   file.directory:

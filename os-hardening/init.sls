@@ -1,7 +1,7 @@
 include:
   - os-hardening.network
   - os-hardening.system
-
+  - os-hardening.minimal_access
 /etc/security/limits.d/10.disable_coredumps.conf:
   file.managed:
     - source: salt://os-hardening/templates/limits.conf.tmpl
