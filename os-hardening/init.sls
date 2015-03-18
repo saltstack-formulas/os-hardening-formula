@@ -1,6 +1,7 @@
 include:
   - os-hardening.network
   - os-hardening.system
+  - os-hardening.pam
 
 limits_hardcore:
   file.managed:
