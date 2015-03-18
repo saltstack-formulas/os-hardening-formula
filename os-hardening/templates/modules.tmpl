@@ -1,4 +1,4 @@
-{% from "linux_hardening/map.jinja" import hardening with context %}
+{% from "os-hardening/map.jinja" import hardening with context %}
 {% if grains['cpuarch'] == "x86_64" %}
 # Optimize for x86_64 cryptographic features
 twofish-x86_64-3way
