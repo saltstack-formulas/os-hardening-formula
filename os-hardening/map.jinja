@@ -1,5 +1,15 @@
 {% set hardening = salt['grains.filter_by']({
     'Linux': {
+      'login_defs' : {
+        'extra_user_paths'        : [],
+        'umask'                   : '027',
+        'password_max_age'        : 60,
+        'password_min_age'        : 7,
+        'login_retries'           : 5,
+        'login_timeout'           : 60,
+        'chfn_restrict'           : '',
+        'allow_login_without_home': false,
+      },
       'networking': {
         'ip_forwarding': 0,
         'ipv6_disable': True,
