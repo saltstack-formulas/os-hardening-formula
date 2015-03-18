@@ -10,7 +10,7 @@ kernel.modules_disabled:
 initramfs_modules:
   file.managed:
     - name: /etc/initramfs-tools/modules
-    - source: salt://linux_hardening/templates/modules.tmpl
+    - source: salt://os-hardening/templates/modules.tmpl
     - template: jinja
     - user: root
     - group: root
