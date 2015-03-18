@@ -1,10 +1,8 @@
 {% from "linux_hardening/map.jinja" import hardening with context %}
 # Only enable IP traffic forwarding, if required.
-#
 net.ipv4.ip_forward:
   sysctl.present:
     - value: {{hardening.networking.ip_forwarding}}
-
 {% if hardening.networking.ipv6_disable %}
 # Disable IPv6
 net.ipv6.conf.all.disable_ipv6: 
