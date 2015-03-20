@@ -15,3 +15,4 @@ hardening:
     arp_restricted: True
   kernel:
     modules_disabled: True
+  allow_change_user: False

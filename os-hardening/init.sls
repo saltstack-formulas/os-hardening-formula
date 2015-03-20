@@ -1,6 +1,7 @@
 include:
   - os-hardening.network
   - os-hardening.system
+  - os-hardening.minimal_access
 
 limits_hardcore:
   file.managed:

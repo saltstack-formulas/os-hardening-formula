@@ -17,6 +17,8 @@
       },
       'kernel': {
         'modules_disabled': True
-      }
+      },
+      'allow_change_user': False,
+      'read_only_folders': ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin']
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}
