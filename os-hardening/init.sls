@@ -18,3 +18,10 @@ disable_coredumps.sh:
     - user: root
     - group: root
     - mode: 755
+/etc/login.defs:
+  file.managed:
+    - source: salt://os-hardening/templates/login.defs.tmpl
+    - template: jinja
+    - user: root
+    - group: root
+    - moe: 0400

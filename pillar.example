@@ -1,4 +1,14 @@
 hardening:
+  login_defs:
+    extra_user_paths:
+      - /somewhere/bin
+    umask: '027'
+    password_max_age: 60
+    password_min_age: 7
+    login_retries: 5
+    login_timeout: 60
+    chfn_restrict: ''
+    allow_login_without_home: false
   network:
     ip_fowarding: 0
     ipv6_disable: True
