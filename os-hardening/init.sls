@@ -25,4 +25,4 @@ disable_coredumps.sh:
     - template: jinja
     - user: root
     - group: root
-    - moe: 0400
+    - mode: 0400
