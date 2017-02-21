@@ -31,7 +31,7 @@ FAILLOG_ENAB    yes
 LOG_UNKFAIL_ENAB  no
 
 # Enable logging of successful logins
-LOG_OK_LOGINS   {% if hardening.login_defs.log_ok_logins %} "yes" {% else %} "no" {% endif %}
+LOG_OK_LOGINS   {% if hardening.login_defs.log_ok_logins %} yes {% else %} no {% endif %}
 
 # Enable "syslog" logging of su activity - in addition to sulog file logging.
 SYSLOG_SU_ENAB    yes
@@ -89,7 +89,7 @@ UMASK   {{hardening.login_defs.umask}}
 
 # Enable setting of the umask group bits to be the same as owner bits (examples: `022` -> `002`, `077` -> `007`) for non-root users, if the uid is the same as gid, and username is the same as the primary group name.
 # If set to yes, userdel will remove the user's group if it contains no more members, and useradd will create by default a group with the name of the user.
-USERGROUPS_ENAB {% if hardening.login_defs.user_group_create %} "yes" {% else %} "no" {% endif %}
+USERGROUPS_ENAB {% if hardening.login_defs.user_group_create %} yes {% else %} no {% endif %}
 
 
 # Password aging controls
@@ -131,7 +131,7 @@ CHFN_RESTRICT   {{hardening.login_defs.chfn_restrict|string}}
 {% endif %}
 
 # Should login be allowed if we can't cd to the home directory?
-DEFAULT_HOME   {% if hardening.login_defs.allow_login_without_home %} "yes" {% else %} "no" {% endif %}
+DEFAULT_HOME   {% if hardening.login_defs.allow_login_without_home %} yes {% else %} no {% endif %}
 
 # If defined, this command is run when removing a user.
 # It should remove any at/cron/print jobs etc. owned by
