@@ -22,6 +22,7 @@ allow-change-user:
   file.managed:
     - name: /bin/su
     - mode: 0750
+    - replace: False
 {% endif %}
 {% if hardening.allow_sudo %}
 allow-sudo:
@@ -30,5 +31,6 @@ allow-sudo:
     - user: root
     - group: root
     - mode: 4755
+    - replace: False
 {% endif %}
 
