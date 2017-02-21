@@ -126,7 +126,7 @@ LOGIN_TIMEOUT   {{hardening.login_defs.login_timeout|string}}
 
 # Which fields may be changed by regular users using chfn - use any combination of letters "frwh" (full name, room number, work phone, home phone).  If not defined, no changes are allowed.
 # For backward compatibility, "yes" = "rwh" and "no" = "frwh".
-{% if chfn_restrict %}
+{% if hardening.login_defs.chfn_restrict %}
 CHFN_RESTRICT   {{hardening.login_defs.chfn_restrict|string}}
 {% endif %}
 
