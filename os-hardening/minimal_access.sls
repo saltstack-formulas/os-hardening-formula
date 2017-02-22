@@ -17,6 +17,7 @@ etc-shadow-file:
     - user: root
     - group: root
     - mode: 0600
+    - replace: False
 {% if hardening.allow_change_user %}
 allow-change-user:
   file.managed:
