@@ -30,6 +30,14 @@ kernel.sysrq:
  sysctl.present: 
   - value: 0
 
+kernel.core_uses_pid:
+  sysctl.present:
+    - value: 1
+
+kernel.kptr_restrict:
+  sysctl.present:
+    - value: 2
+
 # Prevent core dumps with SUID. These are usually only needed by developers and
 # may contain sensitive information.
 fs.suid_dumpable: 
