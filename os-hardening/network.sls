@@ -233,3 +233,12 @@ net.ipv4.conf.all.proxy_arp:
 net.ipv4.conf.default.proxy_arp:
   sysctl.present:
     - value: 0
+
+# Forbid BOOTP Relaying
+net.ipv4.conf.all.bootp_relay:
+  sysctl.present:
+    - value: 0
+
+net.ipv4.conf.default.bootp_relay:
+  sysctl.present:
+    - value: 0
