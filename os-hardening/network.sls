@@ -284,10 +284,6 @@ net.ipv4.conf.default.bootp_relay:
   sysctl.present:
     - value: 0
 
-net.ipv4.conf.default.rp_filter:
-  sysctl.present:
-    - value: 1
-
 net.ipv4.conf.default.log_martians:
   sysctl.present:
     - value: 1
