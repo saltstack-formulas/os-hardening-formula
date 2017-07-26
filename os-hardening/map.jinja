@@ -9,6 +9,14 @@
         'login_timeout'           : 60,
         'chfn_restrict'           : '',
         'allow_login_without_home': false,
+        'additional_user_paths'   : '',
+        'log_ok_logins'           : true,
+        'uid_min'                 : 1000,
+        'uid_max'                 : 60000,
+        'gid_min'                 : 1000,
+        'gid_max'                 : 60000,
+        'user_group_create'       : true,
+        'sha_crypt_max_rounds'    : 5000,
       },
       'networking': {
         'ip_forwarding': 0,
@@ -19,6 +27,7 @@
         'modules_disabled': True
       },
       'allow_change_user': False,
+      'allow_sudo': True,
       'read_only_folders': ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin']
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}

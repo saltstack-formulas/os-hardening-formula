@@ -17,9 +17,21 @@ etc-shadow-file:
     - user: root
     - group: root
     - mode: 0600
+    - replace: False
 {% if hardening.allow_change_user %}
 allow-change-user:
   file.managed:
     - name: /bin/su
     - mode: 0750
+    - replace: False
 {% endif %}
+{% if hardening.allow_sudo %}
+allow-sudo:
+  file.managed:
+    - name: /usr/bin/sudo
+    - user: root
+    - group: root
+    - mode: 4755
+    - replace: False
+{% endif %}
+

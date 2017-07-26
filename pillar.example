@@ -1,7 +1,6 @@
 hardening:
   login_defs:
-    extra_user_paths:
-      - /somewhere/bin
+    additional_user_paths: '/somewhere/bin:/somewhere/else/bin'
     umask: '027'
     password_max_age: 60
     password_min_age: 7
@@ -9,6 +8,13 @@ hardening:
     login_timeout: 60
     chfn_restrict: ''
     allow_login_without_home: false
+    log_ok_logins: true
+    uid_min: 1000
+    uid_max: 60000
+    gid_min: 1000
+    gid_max: 60000
+    user_group_create: true
+    sha_crypt_max_rounds: 5000
   network:
     ip_fowarding: 0
     ipv6_disable: True
@@ -16,3 +22,5 @@ hardening:
   kernel:
     modules_disabled: True
   allow_change_user: False
+  allow_sudo: True
+
