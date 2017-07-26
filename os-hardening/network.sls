@@ -284,11 +284,6 @@ net.ipv4.conf.default.bootp_relay:
   sysctl.present:
     - value: 0
 
-# Enable RP Filtering
-net.ipv4.conf.all.rp_filter:
-  sysctl.present:
-    - value: 1
-
 net.ipv4.conf.default.rp_filter:
   sysctl.present:
     - value: 1
