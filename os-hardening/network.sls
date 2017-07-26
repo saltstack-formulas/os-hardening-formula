@@ -46,45 +46,45 @@ net.ipv6.conf.all.accept_ra:
   sysctl.present:
     - value: 0
 {% else %}
-net.ipv6.conf.all.disable_ipv6: 
-  sysctl.present: 
+net.ipv6.conf.all.disable_ipv6:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.all.forwarding: 
-  sysctl.present: 
+net.ipv6.conf.all.forwarding:
+  sysctl.present:
     - value: {{hardening.networking.ip_forwarding}}
 
-net.ipv6.conf.default.router_solicitations: 
-  sysctl.present: 
+net.ipv6.conf.default.router_solicitations:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_rtr_pref: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_rtr_pref:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_pinfo: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_pinfo:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_defrtr: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_defrtr:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.autoconf: 
-  sysctl.present: 
+net.ipv6.conf.default.autoconf:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.dad_transmits: 
-  sysctl.present: 
+net.ipv6.conf.default.dad_transmits:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.max_addresses: 
-  sysctl.present: 
+net.ipv6.conf.default.max_addresses:
+  sysctl.present:
     - value: 1
 
 # Ignore RAs on Ipv6
-net.ipv6.conf.all.accept_ra: 
-  sysctl.present: 
+net.ipv6.conf.all.accept_ra:
+  sysctl.present:
     - value: 0
 {% endif %}
 # Enable RFC-recommended source validation feature. It should not be used for

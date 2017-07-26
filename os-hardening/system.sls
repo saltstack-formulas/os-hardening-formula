@@ -3,8 +3,8 @@
 # runtime. Setting to 1 will disable module loading at runtime.
 
 {% if hardening.kernel.modules_disabled %}
-kernel.modules_disabled: 
- sysctl.present: 
+kernel.modules_disabled:
+ sysctl.present:
   - value: 1
 {% endif %}
 
@@ -26,8 +26,8 @@ kernel.modules_disabled:
 # * **128** - reboot/poweroff
 # * **256** - nicing of all RT tasks
 
-kernel.sysrq: 
- sysctl.present: 
+kernel.sysrq:
+ sysctl.present:
   - value: 0
 
 kernel.core_uses_pid:
@@ -40,8 +40,8 @@ kernel.kptr_restrict:
 
 # Prevent core dumps with SUID. These are usually only needed by developers and
 # may contain sensitive information.
-fs.suid_dumpable: 
- sysctl.present: 
+fs.suid_dumpable:
+ sysctl.present:
   - value: 0
 
 fs.protected_hardlinks:
