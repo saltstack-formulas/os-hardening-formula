@@ -23,4 +23,4 @@ hardening:
     modules_disabled: True
   allow_change_user: False
   allow_sudo: True
-
+  auto_logout: 600

@@ -28,6 +28,7 @@
       },
       'allow_change_user': False,
       'allow_sudo': True,
+      'auto_logout': 600,
       'read_only_folders': ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin']
   },
 }, grain='kernel',merge=salt['pillar.get']('hardening',{})) %}
