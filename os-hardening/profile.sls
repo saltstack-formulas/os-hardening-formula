@@ -1,4 +1,4 @@
-{% from "os-hardening/map.jinja" import hardening with context %}
+{%- from "os-hardening/map.jinja" import hardening with context %}
 
 disable_coredumps.sh:
   file.managed:

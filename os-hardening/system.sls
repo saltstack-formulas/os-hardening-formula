@@ -1,8 +1,8 @@
-{% from "os-hardening/map.jinja" import hardening with context %}
+{%- from "os-hardening/map.jinja" import hardening with context %}
 # This settings controls how the kernel behaves towards module changes at
 # runtime. Setting to 1 will disable module loading at runtime.
 
-{% if hardening.kernel.modules_disabled %}
+{%- if hardening.kernel.modules_disabled %}
 kernel.modules_disabled:
  sysctl.present:
   - value: 1

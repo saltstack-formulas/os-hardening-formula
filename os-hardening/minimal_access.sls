@@ -1,4 +1,5 @@
-{% from "os-hardening/map.jinja" import hardening with context %}
+{%- from "os-hardening/map.jinja" import hardening with context %}
+
 hardening-read-only-folders:
   file.directory:
     - names: {{ hardening.read_only_folders }}
@@ -11,6 +12,7 @@ hardening-read-only-folders:
       - user
       - group
       - mode
+
 etc-shadow-file:
   file.managed:
     - name: /etc/shadow
@@ -18,14 +20,16 @@ etc-shadow-file:
     - group: root
     - mode: 0600
     - replace: False
-{% if hardening.allow_change_user %}
+
+{%- if hardening.allow_change_user %}
 allow-change-user:
   file.managed:
     - name: /bin/su
     - mode: 0750
     - replace: False
 {% endif %}
-{% if hardening.allow_sudo %}
+
+{%- if hardening.allow_sudo %}
 allow-sudo:
   file.managed:
     - name: /usr/bin/sudo
