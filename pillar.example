@@ -15,7 +15,7 @@ hardening:
     gid_max: 60000
     user_group_create: true
     sha_crypt_max_rounds: 5000
-  network:
+  networking:
     ip_fowarding: 0
     ipv6_disable: True
     arp_restricted: True
