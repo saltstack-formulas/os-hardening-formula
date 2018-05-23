@@ -5,7 +5,7 @@ hardening-read-only-folders:
     - names: {{ hardening.read_only_folders }}
     - user: root
     - group: root
-    - follow_symlinks: True
+    - follow_symlinks: False
     - dir_mode: 755
     - file_mode: 755
     - recurse:
@@ -38,4 +38,3 @@ allow-sudo:
     - mode: 4755
     - replace: False
 {% endif %}
-
