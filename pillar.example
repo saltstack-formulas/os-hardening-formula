@@ -9,8 +9,8 @@ hardening:
     login_timeout: 60
     chfn_restrict: ''
     allow_login_without_home: false
-  network:
-    ip_fowarding: 0
+  networking:
+    ip_forwarding: 0
     ipv6_disable: True
     arp_restricted: True
   kernel:
