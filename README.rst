@@ -20,10 +20,25 @@ Available states
 
 Hardening the network config as well as the system config
 
+``os-hardening.limits``
+------------------------
+
+Hardening only the limits system
+
+``os-hardening.login``
+------------------------
+
+Hardening only the login defaults
+
 ``os-hardening.network``
 ------------------------
 
 Hardening only the network config
+
+``os-hardening.profile``
+------------------------
+
+Hardening only the profile defaults
 
 ``os-hardening.system``
 -----------------------

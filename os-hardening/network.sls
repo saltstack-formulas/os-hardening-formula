@@ -1,88 +1,134 @@
-{% from "os-hardening/map.jinja" import hardening with context %}
+{%- from "os-hardening/map.jinja" import hardening with context %}
+
 # Only enable IP traffic forwarding, if required.
 net.ipv4.ip_forward:
   sysctl.present:
-    - value: {{hardening.networking.ip_forwarding}}
-{% if hardening.networking.ipv6_disable %}
+    - value: {{ hardening.networking.ip_forwarding }}
+
+{%- if hardening.networking.ipv6_disable %}
 # Disable IPv6
-net.ipv6.conf.all.disable_ipv6: 
-  sysctl.present: 
+net.ipv6.conf.all.disable_ipv6:
+  sysctl.present:
     - value: 1
 
-net.ipv6.conf.all.forwarding: 
-  sysctl.present: 
+net.ipv6.conf.all.forwarding:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.router_solicitations: 
-  sysctl.present: 
+net.ipv6.conf.default.router_solicitations:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_rtr_pref: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_rtr_pref:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_pinfo: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_pinfo:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_ra_defrtr: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_ra_defrtr:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.autoconf: 
-  sysctl.present: 
+net.ipv6.conf.default.autoconf:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.dad_transmits: 
-  sysctl.present: 
+net.ipv6.conf.default.dad_transmits:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.max_addresses: 
-  sysctl.present: 
+net.ipv6.conf.default.max_addresses:
+  sysctl.present:
     - value: 1
 
 # Ignore RAs on Ipv6
-net.ipv6.conf.all.accept_ra: 
-  sysctl.present: 
+net.ipv6.conf.all.accept_ra:
+  sysctl.present:
     - value: 0
+
+{% else %}
+net.ipv6.conf.all.disable_ipv6:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.all.forwarding:
+  sysctl.present:
+    - value: {{ hardening.networking.ip_forwarding }}
+
+net.ipv6.conf.default.router_solicitations:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.accept_ra_rtr_pref:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.accept_ra_pinfo:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.accept_ra_defrtr:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.autoconf:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.dad_transmits:
+  sysctl.present:
+    - value: 0
+
+net.ipv6.conf.default.max_addresses:
+  sysctl.present:
+    - value: 1
+
+# Ignore RAs on Ipv6
+net.ipv6.conf.all.accept_ra:
+  sysctl.present:
+    - value: 0
+
 {% endif %}
+
 # Enable RFC-recommended source validation feature. It should not be used for
 # routers on complex networks, but is helpful for end hosts and routers serving
 # small networks.
-net.ipv4.conf.all.rp_filter: 
-  sysctl.present: 
+net.ipv4.conf.all.rp_filter:
+  sysctl.present:
     - value: 1
 
-net.ipv4.conf.default.rp_filter: 
-  sysctl.present: 
+net.ipv4.conf.default.rp_filter:
+  sysctl.present:
     - value: 1
 
 # Reduce the surface on SMURF attacks. Make sure to ignore ECHO broadcasts,
 # which are only required in broad network analysis.
-net.ipv4.icmp_echo_ignore_broadcasts: 
-  sysctl.present: 
+net.ipv4.icmp_echo_ignore_broadcasts:
+  sysctl.present:
     - value: 1
 
 # There is no reason to accept bogus error responses from ICMP, so ignore them
 # instead.
-net.ipv4.icmp_ignore_bogus_error_responses: 
-  sysctl.present: 
+net.ipv4.icmp_ignore_bogus_error_responses:
+  sysctl.present:
     - value: 1
 
 # Limit the amount of traffic the system uses for ICMP.
-net.ipv4.icmp_ratelimit: 
-  sysctl.present: 
+net.ipv4.icmp_ratelimit:
+  sysctl.present:
     - value: 100
 
 # Adjust the ICMP ratelimit to include: ping, dst unreachable, source quench,
 # time exceed, param problem, timestamp reply, information reply
-net.ipv4.icmp_ratemask: 
-  sysctl.present: 
+net.ipv4.icmp_ratemask:
+  sysctl.present:
     - value: 88089
 
 # Protect against wrapping sequence numbers at gigabit speeds:
-net.ipv4.tcp_timestamps: 
-  sysctl.present: 
+net.ipv4.tcp_timestamps:
+  sysctl.present:
     - value: 0
 
 # arp_announce - INTEGER
@@ -108,7 +154,7 @@ net.ipv4.tcp_timestamps:
 # on all other interfaces, with the hope we will receive reply for our request
 # and even sometimes no matter the source IP address we announce.
 
-{% if hardening.networking.arp_restricted %}
+{%- if hardening.networking.arp_restricted %}
 net.ipv4.conf.all.arp_ignore:
   sysctl.present:
     - value: 1
@@ -139,13 +185,13 @@ net.ipv4.conf.all.arp_ignore:
 #
 # * **8** - do not reply for all local addresses
 
-{% if hardening.networking.arp_restricted %}
-net.ipv4.conf.all.arp_announce: 
+{%- if hardening.networking.arp_restricted %}
+net.ipv4.conf.all.arp_announce:
   sysctl.present:
     - value: 2
 {% else %}
-net.ipv4.conf.all.arp_announce: 
-  sysctl.present: 
+net.ipv4.conf.all.arp_announce:
+  sysctl.present:
     - value: 0
 {% endif %}
 
@@ -169,58 +215,81 @@ net.ipv4.conf.default.shared_media:
 
 # Accepting source route can lead to malicious networking behavior, so disable
 # it if not needed.
-net.ipv4.conf.all.accept_source_route: 
-  sysctl.present: 
+net.ipv4.conf.all.accept_source_route:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.all.accept_source_route: 
-  sysctl.present: 
+net.ipv6.conf.all.accept_source_route:
+  sysctl.present:
     - value: 0
 
-net.ipv4.conf.default.accept_source_route: 
-  sysctl.present: 
+net.ipv4.conf.default.accept_source_route:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_source_route: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_source_route:
+  sysctl.present:
     - value: 0
 
 # Accepting redirects can lead to malicious networking behavior, so disable it
 # if not needed.
-net.ipv4.conf.all.accept_redirects: 
-  sysctl.present: 
+net.ipv4.conf.all.accept_redirects:
+  sysctl.present:
     - value: 0
 
-net.ipv4.conf.default.accept_redirects: 
-  sysctl.present: 
+net.ipv4.conf.default.accept_redirects:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.all.accept_redirects: 
-  sysctl.present: 
+net.ipv6.conf.all.accept_redirects:
+  sysctl.present:
     - value: 0
 
-net.ipv6.conf.default.accept_redirects: 
-  sysctl.present: 
+net.ipv6.conf.default.accept_redirects:
+  sysctl.present:
     - value: 0
 
-net.ipv4.conf.all.secure_redirects: 
-  sysctl.present: 
+net.ipv4.conf.all.secure_redirects:
+  sysctl.present:
     - value: 0
 
-net.ipv4.conf.default.secure_redirects: 
-  sysctl.present: 
+net.ipv4.conf.default.secure_redirects:
+  sysctl.present:
     - value: 0
 
 # For non-routers: don't send redirects, these settings are 0
 net.ipv4.conf.all.send_redirects:
-  sysctl.present: 
+  sysctl.present:
     - value: 0
 
 net.ipv4.conf.default.send_redirects:
-  sysctl.present: 
+  sysctl.present:
     - value: 0
 
 # log martian packets (risky, may cause DoS)
 net.ipv4.conf.all.log_martians:
   sysctl.present:
     - value: 1
+
+# Forbid Proxy ARP
+net.ipv4.conf.all.proxy_arp:
+  sysctl.present:
+    - value: 0
+
+net.ipv4.conf.default.proxy_arp:
+  sysctl.present:
+    - value: 0
+
+# Forbid BOOTP Relaying
+net.ipv4.conf.all.bootp_relay:
+  sysctl.present:
+    - value: 0
+
+net.ipv4.conf.default.bootp_relay:
+  sysctl.present:
+    - value: 0
+
+net.ipv4.conf.default.log_martians:
+  sysctl.present:
+    - value: 1
+

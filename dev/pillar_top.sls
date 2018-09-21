@@ -1,3 +1,3 @@
 base:
   'salt':
-    - linux_hardening
+    - os-hardening

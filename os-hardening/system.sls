@@ -1,10 +1,10 @@
-{% from "os-hardening/map.jinja" import hardening with context %}
+{%- from "os-hardening/map.jinja" import hardening with context %}
 # This settings controls how the kernel behaves towards module changes at
 # runtime. Setting to 1 will disable module loading at runtime.
 
-{% if hardening.kernel.modules_disabled %}
-kernel.modules_disabled: 
- sysctl.present: 
+{%- if hardening.kernel.modules_disabled %}
+kernel.modules_disabled:
+ sysctl.present:
   - value: 1
 {% endif %}
 
@@ -26,13 +26,49 @@ kernel.modules_disabled:
 # * **128** - reboot/poweroff
 # * **256** - nicing of all RT tasks
 
-kernel.sysrq: 
- sysctl.present: 
+kernel.sysrq:
+ sysctl.present:
   - value: 0
+
+kernel.core_uses_pid:
+  sysctl.present:
+    - value: 1
+
+kernel.kptr_restrict:
+  sysctl.present:
+    - value: 2
 
 # Prevent core dumps with SUID. These are usually only needed by developers and
 # may contain sensitive information.
-fs.suid_dumpable: 
- sysctl.present: 
+fs.suid_dumpable:
+ sysctl.present:
   - value: 0
+
+fs.protected_hardlinks:
+  sysctl.present:
+    - value: 1
+
+fs.protected_symlinks:
+  sysctl.present:
+    - value: 1
+
+kernel.panic:
+  sysctl.present:
+    - value: 60
+
+kernel.panic_on_oops:
+  sysctl.present:
+    - value: 60
+
+kernel.perf_event_paranoid:
+  sysctl.present:
+    - value: 2
+
+kernel.randomize_va_space:
+  sysctl.present:
+    - value: 2
+
+kernel.yama.ptrace_scope:
+  sysctl.present:
+    - value: 1
 
